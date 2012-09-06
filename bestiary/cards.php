@@ -27,7 +27,8 @@
 	width: 430px;
 	height: 550px;
 	background-repeat: no-repeat;
-	cursor: default;
+  cursor: default;
+  background-position: center;
 }
 .section {
 	color: #fff;
@@ -38,6 +39,11 @@
 	font-weight: bold;
 	font-size: 16px;
 }
+.section-dimensions {
+  border:0px;
+  width:430px;
+  height:550px;
+}
 .abilities {
 	vertical-align: top;
 	text-align: left;
@@ -46,6 +52,18 @@
 	font-size: 12px;
 	font-weight: bold;
 	text-align: center;
+}
+.name-borders {
+  background:rgba(0,0,0,0.5); 
+  border-radius:15px; 
+  border:4px ridge; 
+  position:relative; 
+  top:495px; 
+  left:15px;
+}
+.minus-margins {
+  margin-top:-10px;
+  margin-bottom:-10px;
 }
 </style>
 <?php
@@ -91,25 +109,45 @@ function cards($id) { //Print a card
       'W' => 'indigo', 
       '-' => 'grey'
     );
-    echo '<center><a name="' . $spaceless . '"></a><table border=0><th class="card" style="background-image: url(\'' . $site_root .'images/cards/margin.png\'), url(\'' . $site_root .'bestiary/' . $r['name'] .'/artwork.jpg\'), url(\'' . $site_root . 'images/cards/' . $r['sin'] . '.jpg\'); background-position:center;">';
+    echo '
+      <center>
+      <a name="' . $spaceless . '"></a>
+      <table border="0">
+      <tr> 
+      <th class="card" style="background-image: url(\'' . $site_root .'images/cards/margin.png\'), url(\'' . $site_root .'bestiary/' . $r['name'] .'/artwork.jpg\'), url(\'' . $site_root . 'images/cards/' . $r['sin'] . '.jpg\'); ">
+      ';
 
-		echo '<a href="#' . $spaceless .'"><div class="section" style="border:0px; width:430px; height:550px;"><table class="section" style="background:rgba(0,0,0,0.5); border-radius:15px; border:4px ridge ' . $sins[$r['sin']] . '; position:relative; top:495px; left:15px;"><tr style="font-size:24px; text-align:center;"><td width="20%">' . $r['sin'] . $r['lvl'] . '</td><td>' . $r['name'] . '<td width="20%">' . $r['hex'] . 'H</td></tr></table></div></a>';
+    echo '<a href="#' . $spaceless .'">
+      <div class="section section-dimensions">
+      <table class="section name-borders" style="border-color: ' . $sins[$r['sin']] . ';">
+      <tr style="font-size:24px; text-align:center;">
+      <td width="20%">' . $r['sin'] . $r['lvl'] . '</td>
+      <td>' . $r['name'] . '<td width="20%">' . $r['hex'] . 'H
+      </td>
+      </tr>
+      </table>
+      </div>
+      </a>';
 	}
 	
 	//Display ICONS
-	echo '</th><th class="card" style="background-image: url(\'' . $site_root . 'images/cards/margin.png\'), url(\'' . $site_root . 'images/cards/' . $r['sin'] . '.jpg\'); background-position:center;"><div style="padding-left:15px;"><table class="section"><tr class="numbers">';
+  echo '</th>
+    <th class="card" style="background-image: url(\'' . $site_root . 'images/cards/margin.png\'), url(\'' . $site_root . 'images/cards/' . $r['sin'] . '.jpg\');">
+    <div style="padding-left:15px;">
+    <table class="section">
+    <tr class="numbers">';
   for($i = 0; $i<9; $i++) {
     echo '<th>' . $stats2[$i] . '</th>';
   }
 	echo '</tr><tr class="numbers">';
 	//Display numbers
-	for($i = 1; $i<10; $i++) {
+	for($i = 2; $i<11; $i++) {
     echo '<td>' . $ab_stats_results[$i] . '</td>';
 	}
 	echo '</tr></table>';
 
 	//Display Abilities
-  echo '<table style="margin-top:-10px; margin-bottom:-10px;" class="section abilities"><tr>';
+  echo '<table class="section abilities minus-margins"><tr>';
 	$abilities = array('passive', 'weak', 'medium', 'strong');
 	$y = 0;
 	foreach ($ab_abilities_results as $r) {
@@ -127,7 +165,7 @@ function cards($id) { //Print a card
   echo '</tr><tr class="numbers">';
 
   //Display Numbers
-	for($i = 10; $i<19; $i++) {
+	for($i = 11; $i<20; $i++) {
 		echo '<td>' . $ab_stats_results[$i] . '</td>';
 	}
 	echo '</tr></table></div></th></table></center>';
